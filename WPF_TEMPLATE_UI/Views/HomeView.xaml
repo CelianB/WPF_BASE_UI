@@ -1,0 +1,158 @@
+﻿<Window
+    x:Class="WPF_TEMPLATE_UI.Views.HomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local1="clr-namespace:WPF_TEMPLATE_UI.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:WPF_TEMPLATE_UI="clr-namespace:WPF_TEMPLATE_UI"
+    Name="AppWindow"
+    Title="My amazing Title"
+    Width="1080"
+    Height="720"
+    MinWidth="{Binding WindowMinimumWidth}"
+    MinHeight="{Binding WindowMinimumHeight}"
+    AllowsTransparency="True"
+    Icon="/WPF_TEMPLATE_UI;component/Images/Icon.ico"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="{Binding TitleHeight}"
+            CornerRadius="0"
+            GlassFrameThickness="0"
+            ResizeBorderThickness="{Binding ResizeBorderThickness}" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Style TargetType="{x:Type local1:HomeView}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <!--  Bordure extérieur (ombres etc...)  -->
+                        <materialDesign:DialogHost Identifier="RootDialog">
+                            <Border Padding="{Binding OutMarginThickness}" Background="Transparent">
+                                <!--  Fenetre principal  -->
+                                <Grid>
+                                    <Border
+                                        x:Name="Container"
+                                        Background="{StaticResource BackgroundLightBrush}"
+                                        CornerRadius="{Binding WindowRaduisCorner}" />
+                                    <Border Background="{StaticResource BackgroundVeryLightBrush}" CornerRadius="{Binding WindowRaduisCorner}">
+                                        <Border.Effect>
+                                            <DropShadowEffect Opacity="0.2" ShadowDepth="2" />
+                                        </Border.Effect>
+                                    </Border>
+                                    <!--  Contenus  -->
+                                    <Grid>
+                                        <Grid.OpacityMask>
+                                            <VisualBrush Visual="{Binding ElementName=Container}" />
+                                        </Grid.OpacityMask>
+                                        <Grid.RowDefinitions>
+                                            <!--  Barre de titre  -->
+                                            <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=46}" />
+                                            <!--  Ombre  -->
+                                            <RowDefinition Height="Auto" />
+                                            <!--  Menu  -->
+                                            <RowDefinition Height="Auto" />
+                                            <!--  Contenus  -->
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <!--  Titre  -->
+                                        <Grid Grid.Column="0" Panel.ZIndex="1">
+                                            <Grid.ColumnDefinitions>
+                                                <!--  Icone  -->
+                                                <ColumnDefinition Width="Auto" />
+                                                <!--  Titre  -->
+                                                <ColumnDefinition Width="*" />
+                                                <!--  Buttons  -->
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!--  Icon  -->
+                                            <Button Command="{Binding MenuCommand}" Style="{StaticResource SystemIconButton}">
+                                                <Image Source="/Images/logo.png" />
+                                            </Button>
+
+                                            <!--  Titre  -->
+                                            <Viewbox Grid.Column="1" Margin="0">
+                                                <TextBlock Style="{StaticResource HeaderText}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue=My amazing Title}" />
+                                            </Viewbox>
+
+                                            <!--  Buttons  -->
+
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource HeaderText}" Text="UserName" />
+                                                <Button Command="{Binding MinimizeCommand}" Style="{StaticResource ApplicationBaseButtons}">
+                                                    <materialDesign:PackIcon Foreground="{StaticResource ForegroundMainBrush}" Kind="WindowMinimize" />
+                                                </Button>
+                                                <Button Command="{Binding MaximizeCommand}" Style="{StaticResource ApplicationBaseButtons}">
+                                                    <materialDesign:PackIcon Foreground="{StaticResource ForegroundMainBrush}" Kind="WindowMaximize" />
+                                                </Button>
+                                                <Button Command="{Binding CloseCommand}" Style="{StaticResource CloseButton}">
+                                                    <materialDesign:PackIcon Foreground="{StaticResource ForegroundMainBrush}" Kind="WindowClose" />
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                        <!--  Ombre  -->
+                                        <Border
+                                            Grid.Row="1"
+                                            Height="6"
+                                            BorderThickness="0,0.2,0,0">
+                                            <Border.BorderBrush>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                    <GradientStop Offset="0.0" Color="{StaticResource ForegroundLight}" />
+                                                    <GradientStop Offset="0.5" Color="{StaticResource ForegroundMain}" />
+                                                    <GradientStop Offset="1.0" Color="{StaticResource ForegroundLight}" />
+                                                </LinearGradientBrush>
+                                            </Border.BorderBrush>
+                                        </Border>
+                                        <Border Grid.Row="2" Padding="{Binding InnerContentPaddingThickness}">
+                                            <StackPanel>
+                                                <Grid Height="100">
+                                                    <StackPanel
+                                                        Margin="5,0"
+                                                        VerticalAlignment="Top"
+                                                        Orientation="Horizontal">
+                                                        <Button
+                                                            Command="{Binding AppMenuCommand}"
+                                                            CommandParameter="0"
+                                                            Content="PART 1"
+                                                            Style="{StaticResource MenuButton}" />
+                                                        <Button
+                                                            Command="{Binding AppMenuCommand}"
+                                                            CommandParameter="1"
+                                                            Content="PART 2"
+                                                            Style="{StaticResource MenuButton}" />
+                                                    </StackPanel>
+                                                    <Grid
+                                                        Width="200"
+                                                        Height="5"
+                                                        Margin="{Binding MarginMenuUnderlineThickness}"
+                                                        HorizontalAlignment="Left"
+                                                        Background="{StaticResource ForegroundMainBrush}" />
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                        <ContentControl
+                                            Grid.Row="3"
+                                            Margin="10,-20,10,0"
+                                            Content="{TemplateBinding Content}" />
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </materialDesign:DialogHost>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <ContentPresenter Content="{Binding CurrentPage, Converter={WPF_TEMPLATE_UI:ApplicationPageValueConverter}}" />
+    </Grid>
+</Window>
