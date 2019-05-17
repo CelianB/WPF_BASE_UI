@@ -43,3 +43,4 @@ C:\Users\util\Documents\Projects\WPF_BASE_UI\WPF_TEMPLATE_UI\obj\Release\WPF_TEM
 C:\Users\util\Documents\Projects\WPF_BASE_UI\WPF_TEMPLATE_UI\obj\Release\WPF_TEMPLATE_UI.csproj.CopyComplete
 C:\Users\util\Documents\Projects\WPF_BASE_UI\WPF_TEMPLATE_UI\obj\Release\WPF_TEMPLATE_UI.exe
 C:\Users\util\Documents\Projects\WPF_BASE_UI\WPF_TEMPLATE_UI\obj\Release\WPF_TEMPLATE_UI.pdb
+C:\Users\util\Documents\Projects\WPF_BASE_UI\WPF_TEMPLATE_UI\obj\Release\WPF_TEMPLATE_UI.csprojAssemblyReference.cache
